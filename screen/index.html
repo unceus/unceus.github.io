@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+		<script>
+			$(document).ready(function() {
+        var compute = function() {
+          var els= [
+            'screenx',
+            'screeny',
+            'windowx',
+            'windowy'
+          ],
+          windowx=window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+          windowy=window.innerHeight || document.documentElement.clientHeight ||document.body.clientHeight,
+          screenx=screen.height,
+          screeny=screen.width;
+          
+          $.each(els, function(i, el) {
+            $('#' + el).html(eval(els[i]));
+          })
+        }
+        compute();
+        $(window).resize(compute);
+			});
+		</script>
+	</head>
+	<body>
+		<div>
+			Screen Size: <span id=screenx></span> x <span id=screeny></span>
+		</div>
+		<div>
+			Window Size: <span id=windowx></span> x <span id=windowy></span>
+		</div>
+	</body>
+</html>
