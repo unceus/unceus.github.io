@@ -1,5 +1,7 @@
 <html>
 	<head>
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <meta name="theme-color" content="rgb(207,23,28)">
 		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 		<script>
 			$(document).ready(function() {
@@ -14,7 +16,7 @@
           windowy=window.innerHeight || document.documentElement.clientHeight ||document.body.clientHeight,
           screenx=screen.height,
           screeny=screen.width;
-          
+
           $.each(els, function(i, el) {
             $('#' + el).html(eval(els[i]));
           })
