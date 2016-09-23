@@ -14,11 +14,11 @@
     @media screen and (orientation:landscape) {
       #oriented_landscape { display: block; }
     }
-    @media only screen and (max-device-width : 480px) and (orientation: portrait),
-      only screen and (max-device-width : 640px) and (orientation: landscape) {
+    @media only screen and (max-device-width : 1000px) and (orientation: portrait),
+      only screen and (max-device-height : 1000px) and (orientation: landscape) {
       #mobile { display: block }
     }
-    @media only screen 
+    @media only screen
     and (min-device-width : 800px) {
       #desktop { display: block }
     }
@@ -42,7 +42,7 @@
   </style>
 </head>
 <body>
-  <div id=mobile>Huzzah! You're using a mobile device today.</div>
+  <div id=mobile>Huzzah! You're using a mobile device today. (recently updated)</div>
   <div id=ipad>You are using an iPad</div>
   <div id=highresolution>You are using a higher resolution device.</div>
   <div id=ipad-landscape>You are using an iPad in landscape mode</div>
