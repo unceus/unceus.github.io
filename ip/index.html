@@ -1,0 +1,36 @@
+---
+# front matter
+---
+<html>
+	<head>
+    <title>unce - discover your IP</title>
+    {% include default_head.html %}
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script>
+      var onSuccess = function(resp) {
+        $('#ip').text(resp.ip)
+      }
+      $(document).ready(function() {
+        $.ajax("https://api.ipify.org?format=json",
+          {
+            success: onSuccess
+          }
+        )
+      });
+		</script>
+    <style>
+      h3, h1, span { text-align: center }
+      span {
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
+	</head>
+	<body>
+    <h3>your ip is: </h3>
+    <h1 id=ip></h1>
+    <span><small><em>powered by <a href="https://www.ipify.org" target="_blank">ipify</a></em></small></span>
+
+    {% include analytics.html %}
+	</body>
+</html>
