@@ -1,0 +1,84 @@
+---
+# front matter
+---
+<html>
+  <head>
+    <title>Include Files at the Root of Your Ember Project - unce.us</title>
+    {% include default_head.html %}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>body { font: menu; } </style>
+  </head>
+  <body>
+    <article>
+      <header><h2>Include a File at the Root of Your Ember Project</h2></header>
+      <section class="articleExplanation">
+        <p>I recently had a need to include two files at the root of my ember project - a service worker and a manifest file.</p>
+        <p>I sought fine-grained control over my service worker, a la not using the fabulous ember-service-worker plugin.</p>
+        <p>To accomplish this, I made a few small changes to my ember-cli-build file.</p>
+
+        <p>The first two changes involve:
+          <ul>
+            <li>defining the two files to be placed into the root directory in a constant at the top of the exports function</li>
+            <li>adding two dependencies to the top of the ember-cli-build file</li>
+              </p>
+      </section>
+
+      <section class="articleCode">
+        <pre>
+          <code class="javascript">//ember-cli-build.js
+
+module.exports = function(defaults) {
+  var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+
+  const mergeTrees = require('broccoli-merge-trees'); //add this dependency
+  const Funnel = require('broccoli-funnel'); //add this dependency
+  const STATIC_FILES = ['manifest.json', 'service-worker.js'] //define your files here
+          </code>
+        </pre>
+      </section>
+      <section class="articleExplanation">
+        <p>Then, create a tree using the STATIC_FILES constant defined above, and in that tree, instruct broccoli to put the tree's files in the root directory:</p>
+      </section>
+      <section class="articleCode">
+        <pre>
+          <code class="javascript">
+var staticTree = new Funnel("./public/assets", {
+  include: STATIC_FILES,
+  destDir: '.'
+})
+          </code>
+        </pre>
+      </section>
+      <section class="articleExplanation">
+        <p>On the next build, the service worker and manifest files should be in the root of the dist/ folder.</p>
+        <p>The service worker will be fingerprinted and minified. In most situations this is great, but not this one.</p>
+        <p>To prevent the service worker from being fingerprinted and minified, we can instruct broccoli to exclude it from those processes:</p>
+      </section>
+    </article>
+      <section class="articleCode">
+        <pre>
+          <code class="javascript">
+var app = new EmberApp(defaults, {
+  minifyJS: {
+    options: {
+      exclude: ['assets/service-worker.js'] //needs the path
+    }
+  },
+  fingerprint: {
+    exclude: ['service-worker.js'] //just needs the filename
+  },
+
+          </code>
+        </pre>
+      </section>
+      <section class="articleExplanation">
+        <p>That's it! Now, both files will be in the root directory, unmodified.</p>
+        <br>
+        <small><em>thanks to <a href="https://highlightjs.org/" target="_blank" rel="noopener">https://highlightjs.org/</a> for making an awesome syntax highlighter!</em></small>
+      </section>
+    {% include analytics.html %}
+    </script>
+  </body>
+</html>
