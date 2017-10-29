@@ -8,7 +8,7 @@
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script>
       var onSuccess = function(resp) {
-        $('#ip').text(JSON.parse(resp).ip);
+        $('#ip').text(resp.ip);
       }
       $(document).ready(function() {
         $.ajax("https://ip.unce.us",
